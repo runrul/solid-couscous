@@ -1,0 +1,234 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans);background:#0f1117;color:#f0f0f0;min-height:100vh;padding:0;}
+.dash{display:grid;grid-template-columns:260px 1fr;min-height:100vh;}
+.sidebar{background:#161920;border-right:0.5px solid #2a2d38;padding:1.5rem 1rem;display:flex;flex-direction:column;gap:1.5rem;}
+.logo-row{display:flex;align-items:center;gap:10px;}
+.logo-box{width:34px;height:34px;background:#1d6f42;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-box svg{width:18px;height:18px;}
+.logo-text{font-size:14px;font-weight:500;color:#f0f0f0;line-height:1.2;}
+.logo-sub{font-size:11px;color:#666;}
+.time-block{background:#1e2130;border-radius:12px;padding:14px;}
+.time-big{font-size:28px;font-weight:500;color:#f0f0f0;letter-spacing:-0.5px;}
+.time-date{font-size:12px;color:#666;margin-top:2px;}
+.nav-label{font-size:10px;font-weight:500;color:#444;text-transform:uppercase;letter-spacing:0.1em;padding:0 4px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;text-decoration:none;color:#aaa;font-size:13px;transition:background 0.1s,color 0.1s;}
+.nav-item:hover{background:#1e2130;color:#f0f0f0;}
+.nav-item.active{background:#1d3a28;color:#4ade80;}
+.nav-icon{font-size:14px;width:18px;text-align:center;}
+.todo-section{flex:1;}
+.todo-title{font-size:12px;color:#555;font-weight:500;margin-bottom:10px;padding:0 4px;}
+.todo-input-row{display:flex;gap:6px;margin-bottom:10px;}
+.todo-input{flex:1;background:#1e2130;border:0.5px solid #2a2d38;border-radius:8px;padding:7px 10px;font-size:12px;color:#f0f0f0;outline:none;}
+.todo-input:focus{border-color:#1d6f42;}
+.todo-btn{background:#1d6f42;border:none;border-radius:8px;padding:7px 10px;color:#fff;font-size:13px;cursor:pointer;}
+.todo-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:8px;font-size:12px;color:#ccc;}
+.todo-item:hover{background:#1e2130;}
+.todo-check{width:14px;height:14px;border-radius:4px;border:0.5px solid #444;background:transparent;cursor:pointer;flex-shrink:0;appearance:none;display:flex;}
+.todo-check:checked{background:#1d6f42;border-color:#1d6f42;}
+.todo-text{flex:1;}
+.todo-del{color:#444;cursor:pointer;font-size:11px;opacity:0;}
+.todo-item:hover .todo-del{opacity:1;}
+.main{padding:1.5rem;display:flex;flex-direction:column;gap:1.5rem;background:#0f1117;}
+.search-bar{display:flex;align-items:center;gap:10px;background:#161920;border:0.5px solid #2a2d38;border-radius:12px;padding:0 14px;}
+.search-bar input{flex:1;background:transparent;border:none;outline:none;padding:12px 0;font-size:14px;color:#f0f0f0;}
+.search-bar input::placeholder{color:#444;}
+.search-icon{color:#444;font-size:14px;}
+.section-head{font-size:11px;font-weight:500;color:#444;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;}
+.site-card{background:#161920;border:0.5px solid #2a2d38;border-radius:12px;padding:14px 10px;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:8px;transition:border-color 0.15s,background 0.15s;cursor:pointer;}
+.site-card:hover{border-color:#2a5c3a;background:#1a2030;}
+.site-icon{font-size:22px;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;}
+.site-name{font-size:12px;font-weight:500;color:#d0d0d0;text-align:center;}
+.site-tag{font-size:10px;color:#555;text-align:center;}
+.greeting{font-size:20px;font-weight:500;color:#f0f0f0;}
+.greeting-sub{font-size:13px;color:#555;margin-top:3px;}
+</style>
+
+<div class="dash">
+  <div class="sidebar">
+    <div class="logo-row">
+      <div class="logo-box">
+        <svg viewBox="0 0 20 20" fill="none">
+          <path d="M10 2L10 10M10 10L6 15M10 10L14 15M7 6L10 2L13 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">TechTree</div>
+        <div class="logo-sub">Elementary</div>
+      </div>
+    </div>
+
+    <div class="time-block">
+      <div class="time-big" id="clock">--:--</div>
+      <div class="time-date" id="datestr">Loading...</div>
+    </div>
+
+    <div>
+      <div class="nav-label" style="margin-bottom:8px;">Navigate</div>
+      <a class="nav-item active" href="https://techtree-learn-core.base44.app" target="_blank">
+        <span class="nav-icon">🌳</span> School site
+      </a>
+      <a class="nav-item" href="https://classroom.google.com" target="_blank">
+        <span class="nav-icon">📚</span> Google Classroom
+      </a>
+      <a class="nav-item" href="https://drive.google.com" target="_blank">
+        <span class="nav-icon">💾</span> Google Drive
+      </a>
+      <a class="nav-item" href="https://gmail.com" target="_blank">
+        <span class="nav-icon">📧</span> Gmail
+      </a>
+      <a class="nav-item" href="https://calendar.google.com" target="_blank">
+        <span class="nav-icon">📅</span> Calendar
+      </a>
+    </div>
+
+    <div class="todo-section">
+      <div class="todo-title">Homework / To-do</div>
+      <div class="todo-input-row">
+        <input class="todo-input" id="todoInput" placeholder="Add a task..." onkeydown="if(event.key==='Enter')addTodo()"/>
+        <button class="todo-btn" onclick="addTodo()">+</button>
+      </div>
+      <div id="todoList"></div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div>
+      <div class="greeting" id="greeting">Good morning!</div>
+      <div class="greeting-sub">Welcome to your dashboard</div>
+    </div>
+
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search Google..." id="searchInput" onkeydown="if(event.key==='Enter')doSearch()"/>
+    </div>
+
+    <div>
+      <div class="section-head">School tools</div>
+      <div class="cards-grid">
+        <a class="site-card" href="https://docs.google.com" target="_blank">
+          <div class="site-icon" style="background:#1e2a4a;">📝</div>
+          <div class="site-name">Docs</div>
+          <div class="site-tag">Google</div>
+        </a>
+        <a class="site-card" href="https://slides.google.com" target="_blank">
+          <div class="site-icon" style="background:#2a1e1e;">📊</div>
+          <div class="site-name">Slides</div>
+          <div class="site-tag">Google</div>
+        </a>
+        <a class="site-card" href="https://sheets.google.com" target="_blank">
+          <div class="site-icon" style="background:#1e2a1e;">📈</div>
+          <div class="site-name">Sheets</div>
+          <div class="site-tag">Google</div>
+        </a>
+        <a class="site-card" href="https://meet.google.com" target="_blank">
+          <div class="site-icon" style="background:#1e2a1e;">🎥</div>
+          <div class="site-name">Meet</div>
+          <div class="site-tag">Google</div>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-head">Learn & Create</div>
+      <div class="cards-grid">
+        <a class="site-card" href="https://khanacademy.org" target="_blank">
+          <div class="site-icon" style="background:#2a2a1a;">🎓</div>
+          <div class="site-name">Khan Academy</div>
+          <div class="site-tag">Learning</div>
+        </a>
+        <a class="site-card" href="https://scratch.mit.edu" target="_blank">
+          <div class="site-icon" style="background:#1e2a2a;">🐱</div>
+          <div class="site-name">Scratch</div>
+          <div class="site-tag">Coding</div>
+        </a>
+        <a class="site-card" href="https://code.org" target="_blank">
+          <div class="site-icon" style="background:#1e2a2a;">💻</div>
+          <div class="site-name">Code.org</div>
+          <div class="site-tag">Coding</div>
+        </a>
+        <a class="site-card" href="https://quizlet.com" target="_blank">
+          <div class="site-icon" style="background:#1e1e2a;">🃏</div>
+          <div class="site-name">Quizlet</div>
+          <div class="site-tag">Study</div>
+        </a>
+        <a class="site-card" href="https://duolingo.com" target="_blank">
+          <div class="site-icon" style="background:#1e2a1e;">🦜</div>
+          <div class="site-name">Duolingo</div>
+          <div class="site-tag">Language</div>
+        </a>
+        <a class="site-card" href="https://claude.ai" target="_blank">
+          <div class="site-icon" style="background:#2a1e2a;">🤖</div>
+          <div class="site-name">Claude AI</div>
+          <div class="site-tag">Assistant</div>
+        </a>
+        <a class="site-card" href="https://canva.com" target="_blank">
+          <div class="site-icon" style="background:#2a1e1e;">🎨</div>
+          <div class="site-name">Canva</div>
+          <div class="site-tag">Design</div>
+        </a>
+        <a class="site-card" href="https://youtube.com" target="_blank">
+          <div class="site-icon" style="background:#2a1a1a;">▶️</div>
+          <div class="site-name">YouTube</div>
+          <div class="site-tag">Video</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function updateClock(){
+  const n=new Date();
+  const h=n.getHours(),m=n.getMinutes();
+  const ap=h>=12?'PM':'AM';
+  const hh=h%12||12;
+  const mm=m<10?'0'+m:m;
+  document.getElementById('clock').textContent=hh+':'+mm+' '+ap;
+  const days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  document.getElementById('datestr').textContent=days[n.getDay()]+', '+months[n.getMonth()]+' '+n.getDate();
+  const g=document.getElementById('greeting');
+  if(h<12)g.textContent='Good morning!';
+  else if(h<17)g.textContent='Good afternoon!';
+  else g.textContent='Good evening!';
+}
+updateClock();
+setInterval(updateClock,1000);
+
+function doSearch(){
+  const q=document.getElementById('searchInput').value;
+  if(q)window.open('https://google.com/search?q='+encodeURIComponent(q),'_blank');
+}
+
+let todos=[];
+function addTodo(){
+  const inp=document.getElementById('todoInput');
+  const val=inp.value.trim();
+  if(!val)return;
+  todos.push({text:val,done:false,id:Date.now()});
+  inp.value='';
+  renderTodos();
+}
+function toggleTodo(id){
+  const t=todos.find(x=>x.id===id);
+  if(t)t.done=!t.done;
+  renderTodos();
+}
+function deleteTodo(id){
+  todos=todos.filter(x=>x.id!==id);
+  renderTodos();
+}
+function renderTodos(){
+  const list=document.getElementById('todoList');
+  list.innerHTML=todos.map(t=>`
+    <div class="todo-item">
+      <input type="checkbox" class="todo-check" ${t.done?'checked':''} onchange="toggleTodo(${t.id})"/>
+      <span class="todo-text" style="${t.done?'text-decoration:line-through;color:#444;':''}">${t.text}</span>
+      <span class="todo-del" onclick="deleteTodo(${t.id})">✕</span>
+    </div>
+  `).join('');
+}
+</script>
